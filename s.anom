@@ -1,0 +1,78 @@
+[SETTINGS]
+{
+  "Name": "s",
+  "SuggestedBots": 1,
+  "MaxCPM": 0,
+  "LastModified": "2021-03-23T07:46:35.4306763-07:00",
+  "AdditionalInfo": "",
+  "Author": "",
+  "Version": "1.4.4 [Anomaly]",
+  "IgnoreResponseErrors": false,
+  "MaxRedirects": 8,
+  "NeedsProxies": false,
+  "OnlySocks": false,
+  "OnlySsl": false,
+  "MaxProxyUses": 0,
+  "BanProxyAfterGoodStatus": false,
+  "EncodeData": false,
+  "AllowedWordlist1": "",
+  "AllowedWordlist2": "",
+  "DataRules": [],
+  "CustomInputs": [],
+  "CaptchaUrl": "",
+  "Base64": "",
+  "Grayscale": false,
+  "RemoveLines": false,
+  "RemoveNoise": false,
+  "Dilate": false,
+  "Threshold": 1.0,
+  "DiffKeep": 0.0,
+  "DiffHide": 0.0,
+  "Saturate": false,
+  "Saturation": 0.0,
+  "Transparent": false,
+  "Contour": false,
+  "OnlyShow": false,
+  "ContrastGamma": false,
+  "Contrast": 1.0,
+  "Gamma": 1.0,
+  "Brightness": 1.0,
+  "RemoveLinesMin": 0,
+  "RemoveLinesMax": 0,
+  "Crop": false,
+  "ForceHeadless": false,
+  "AlwaysOpen": false,
+  "AlwaysQuit": false,
+  "DisableNotifications": false,
+  "CustomUserAgent": "",
+  "RandomUA": false,
+  "CustomCMDArgs": ""
+}
+
+[SCRIPT]
+SET VAR "PASS" "123456"
+SET VAR "PASSFILE" "MyConfigPassword.txt"
+
+UTILITY File "<PASSFILE>" Read -> VAR "READ" 
+
+IF "<READ>" EqualTo "<PASS>"
+JUMP #START
+ENDIF
+IF "<READ>" DoesNotExist
+
+UTILITY File "<PASSFILE>" Write "ENTERPASS" 
+
+SET CAP "CHECK OB FOLDER" "ENTER PASSWORD"
+JUMP #STOP
+ELSE
+SET CAP "PASSWORD INCORRECT" "PASSWORD INCORRECT"
+JUMP #STOP
+ENDIF
+#START 
+
+FUNCTION Constant "Start of the config" -> VAR "start" 
+
+#STOP
+
+FUNCTION RegexMatch "4\\w*?" "<cc>" 
+
